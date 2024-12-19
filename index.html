@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Henry's Vocab List - bitbrained.com</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/minisearch@6.0.0/dist/umd/index.min.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+  <!-- Header Section -->
+  <header class="bg-blue-600 text-white py-6">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl font-bold">Henry's Vocab List</h1>
+      <p class="text-lg mt-2">Expand your vocabulary, one word at a time!</p>
+    </div>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="container mx-auto mt-8 px-4">
+    <input
+      id="search-bar"
+      type="text"
+      placeholder="Search for a word..."
+      class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div>
+
+  <!-- Vocabulary List Section -->
+  <main class="container mx-auto mt-4 px-4">
+    <h2 class="text-2xl font-semibold mb-4">Vocabulary Words</h2>
+    <div id="vocab-list" class="bg-white shadow-md rounded-lg p-6">
+      <!-- Vocabulary words will be dynamically inserted here -->
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="bg-gray-800 text-white py-4 mt-8">
+    <div class="container mx-auto text-center">
+      <p>Made with ❤️ for my son, Henry.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Inline JavaScript array containing vocabulary words and their meanings
+    const vocabulary = [
+      {word: "stern", meaning: "the back of the boat"},
+      {word: "lumbers", meaning: "walks with great difficulty"},
+      {word: "hull", meaning: "the bottom of the ship that is in the water"},
+      {word: "hurdles", meaning: "jumps, flies"},
+      {word: "savor", meaning: "enjoy"},
+      {word: "tar", meaning: "a sticky black substance (that is put on roads and the bottom of wooden ships)"},
+      {word: "foodie", meaning: "a person who knows a lot about and loves food"},
+      {word: "entitled", meaning: "deserved it"},
+      {word: "frigid", meaning: "very cold"},
+      {word: "roster", meaning: "a list of players"},
+      {word: "reliable", meaning: "dependable"},
+      {word: "rigorous", meaning: "careful, precise, demanding"},
+      {word: "searing", meaning: "burning"},
+      {word: "somber", meaning: "serious"},
+      {word: "quandary", meaning: "a difficult situation that is not easy to solve"},
+      {word: "gales", meaning: "strong winds"},
+      {word: "swabbing", meaning: "mopping"},
+      {word: "exalted", meaning: "very respected and important"},
+      {word: "heedlessly", meaning: "without paying attention"},
+      {word: "sulk", meaning: "pout"},
+      {word: "eavesdropping", meaning: "secretly listening to someone else's conversation"},
+      {word: "snare", meaning: "to trap or catch"},
+      {word: "seasoned", meaning: "something that has been used often"},
+      {word: "sought", meaning: "looked for"},
+      {word: "accommodating", meaning: "doing what you can to make a person feel welcomed"},
+      {word: "mast", meaning: "the pole on a boat that the sail is attached to"},
+      {word: "imminent", meaning: "about to happen right away"},
+      {word: "menial", meaning: "work that doesn't need a lot of skill"},
+      {word: "retorts", meaning: "responds, answers"},
+      {word: "apprehension", meaning: "worry, concern"},
+      {word: "underwhelmed", meaning: "not impressed"},
+      {word: "smarts", meaning: "hurts"},
+      {word: "bushel", meaning: "a large amount of something (about 8 pounds)"},
+      {word: "conceal", meaning: "to hide"},
+      {word: "grimace", meaning: "a facial expression of pain"},
+      {word: "essential", meaning: "very necessary"},
+      {word: "uncharted", meaning: "not on a map"},
+      {word: "meager", meaning: "very little amount"},
+      {word: "perilous", meaning: "dangerous"},
+      {word: "rave", meaning: "to talk on and on about how good something is"},
+      {word: "unpalatable", meaning: "something so bad you don't want to eat it"},
+      {word: "distributor", meaning: "a company who provides food for restaurants"},
+      {word: "distress", meaning: "anxiety, upset"},
+      {word: "iridescent", meaning: "shiny"},
+      {word: "diminished", meaning: "lessened"},
+      {word: "uniformly", meaning: "done the same way each time"},
+      {word: "riggings", meaning: "the ropes that tie the sail to the mast"},
+      {word: "hearty", meaning: "a big meal, something that fills you up"},
+      {word: "proper", meaning: "correct"},
+      {word: "complemented", meaning: "went well with"},
+      {word: "commute", meaning: "a trip to work"},
+      {word: "rely", meaning: "depend on"},
+      {word: "bone-dry", meaning: "extremely dry"},
+      {word: "insoles", meaning: "the padding inside a shoe"},
+      {word: "authorization", meaning: "permission"},
+      {word: "alas", meaning: "an expression that shows disappointment"},
+      {word: "claim", meaning: "a statement"},
+      {word: "excursion", meaning: "an outing, a trip"},
+      {word: "trail head", meaning: "the beginning of a hiking trail"},
+      {word: "duo", meaning: "two people"},
+      {word: "halted", meaning: "stopped"},
+      {word: "elongated", meaning: "something longer"},
+      {word: "brawny", meaning: "strong, muscular"},
+      {word: "scoffed", meaning: "teased, made fun of"},
+      {word: "outlandish", meaning: "outrageous, ridiculous"},
+      {word: "shushing", meaning: "telling someone to be quiet"},
+      {word: "strides", meaning: "steps"},
+      {word: "astonished", meaning: "shocked, amazed"},
+      {word: "ominous", meaning: "threatening, big and scary"},
+      {word: "prey", meaning: "an animal that is eaten by predator"},
+      {word: "lurking", meaning: "hiding, sneaking"},
+      {word: "wiff", meaning: "smell"},
+      {word: "bellowed", meaning: "a deep roar"},
+      {word: "clambered", meaning: "climbed"},
+      {word: "adept", meaning: "good at"},
+      {word: "antagonize", meaning: "to pick on, to bother"},
+      {word: "dilemma", meaning: "a problem, a predicament"},
+      {word: "predicament", meaning: "problem, a dilemma"},
+      {word: "formulate", meaning: "to come up with a plan, devise"},
+      {word: "devise", meaning: "to come up with a plan, formulate"},
+      {word: "impetuous", meaning: "acts without thinking, impulsive"},
+      {word: "tethered", meaning: "tied to something"},
+      {word: "dinghy", meaning: "small boat"},
+      {word: "scrubby", meaning: "an area with many small bushes"},
+      {word: "wade", meaning: "walk in shallow water"},
+      {word: "stroll", meaning: "an easy walk"},
+      {word: "competent", meaning: "good at something"},
+      {word: "ponders", meaning: "thinks about"},
+      {word: "visualization", meaning: "to imagine"},
+      {word: "unearth", meaning: "to uncover, to find"},
+      {word: "extraneous", meaning: "extra, not needed"},
+      {word: "feisty", meaning: "playful, full of energy"},
+      {word: "companionable", meaning: "friendly"},
+      {word: "dust up", meaning: "a small fight"},
+      {word: "ramble", meaning: "a fun walk without a destination"}
+    ];
+    vocabulary.forEach((v, i, a) => {v.id=i;});
+    vocabulary.sort((a,b) => a.word < b.word ? -1 : a.word > b.word? 1 : 0);
+
+    // Initialize MiniSearch
+    const miniSearch = new MiniSearch({
+      fields: ['word', 'meaning'], // Fields to index for searching
+      storeFields: ['word', 'meaning'] // Fields to return with search results
+    });
+
+    // Add vocabulary data to MiniSearch
+    miniSearch.addAll(vocabulary);
+
+    // Function to render the vocabulary list
+    const renderVocabList = (items) => {
+      const vocabListContainer = document.getElementById("vocab-list");
+      vocabListContainer.innerHTML = ""; // Clear the list
+
+      items.forEach(item => {
+        const vocabItem = document.createElement("div");
+        vocabItem.classList.add("border-b", "pb-4", "mb-4");
+
+        const wordElement = document.createElement("h3");
+        wordElement.classList.add("text-xl", "font-bold", "text-blue-600");
+        wordElement.textContent = item.word;
+
+        const meaningElement = document.createElement("p");
+        meaningElement.classList.add("text-gray-700");
+        meaningElement.textContent = item.meaning;
+
+        vocabItem.appendChild(wordElement);
+        vocabItem.appendChild(meaningElement);
+        vocabListContainer.appendChild(vocabItem);
+      });
+    };
+
+    // Initial render of the full vocabulary list
+    renderVocabList(vocabulary);
+
+    // Add event listener to the search bar
+    const searchBar = document.getElementById("search-bar");
+    searchBar.addEventListener("input", (event) => {
+      const query = event.target.value.trim();
+      if (query === "") {
+        renderVocabList(vocabulary); // Show full list if search is empty
+      } else {
+        const results = miniSearch.search(query, {prefix: true, fuzzy: 0.5});
+        renderVocabList(results.map(result => result));
+      }
+    });
+  </script>
+</body>
+</html>
