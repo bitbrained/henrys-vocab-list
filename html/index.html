@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Henry's Vocab List - bitbrained.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/minisearch@6.0.0/dist/umd/index.min.js"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-800 font-sans">
+    <!-- Header Section -->
+    <header class="bg-blue-600 text-white py-6">
+      <div class="container mx-auto text-center">
+        <h1 class="text-4xl font-bold">Henry's Vocab List</h1>
+        <p class="text-lg mt-2">Expand your vocabulary, one word at a time!</p>
+      </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="container mx-auto mt-8 px-4">
+      <input
+        id="search-bar"
+        type="text"
+        placeholder="Search for a word..."
+        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <!-- Vocabulary List Section -->
+    <main class="container mx-auto mt-4 px-4">
+      <h2 class="text-2xl font-semibold mb-4">Vocabulary Words</h2>
+      <div id="vocab-list" class="bg-white shadow-md rounded-lg p-6">
+        <!-- Vocabulary words will be dynamically inserted here -->
+      </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-4 mt-8">
+      <div class="container mx-auto text-center">
+        <p>Made with ❤️ for my son, Henry.</p>
+      </div>
+    </footer>
+
+    <script>
+      (async () => {
+        const fetchVocabulary = async () => {
+          try {
+            const response = await fetch("wordlist.json");
+            return (await response.json()).wordList;
+          } catch (err) {
+            alert(err.message);
+          }
+        };
+        // Inline JavaScript array containing vocabulary words and their meanings
+        const vocabulary = await fetchVocabulary();
+        
+        vocabulary.forEach((v, i, a) => {
+          v.id = i;
+        });
+        vocabulary.sort((a, b) =>
+          a.word < b.word ? -1 : a.word > b.word ? 1 : 0
+        );
+
+        // Initialize MiniSearch
+        const miniSearch = new MiniSearch({
+          fields: ["word", "meaning"], // Fields to index for searching
+          storeFields: ["word", "meaning"], // Fields to return with search results
+        });
+
+        // Add vocabulary data to MiniSearch
+        miniSearch.addAll(vocabulary);
+
+        // Function to render the vocabulary list
+        const renderVocabList = (items) => {
+          const vocabListContainer = document.getElementById("vocab-list");
+          vocabListContainer.innerHTML = ""; // Clear the list
+
+          items.forEach((item) => {
+            const vocabItem = document.createElement("div");
+            vocabItem.classList.add("border-b", "pb-4", "mb-4");
+
+            const wordElement = document.createElement("h3");
+            wordElement.classList.add("text-xl", "font-bold", "text-blue-600");
+            wordElement.textContent = item.word;
+
+            const meaningElement = document.createElement("p");
+            meaningElement.classList.add("text-gray-700");
+            meaningElement.textContent = item.meaning;
+
+            vocabItem.appendChild(wordElement);
+            vocabItem.appendChild(meaningElement);
+            vocabListContainer.appendChild(vocabItem);
+          });
+        };
+
+        // Initial render of the full vocabulary list
+        renderVocabList(vocabulary);
+
+        // Add event listener to the search bar
+        const searchBar = document.getElementById("search-bar");
+        searchBar.addEventListener("input", (event) => {
+          const query = event.target.value.trim();
+          if (query === "") {
+            renderVocabList(vocabulary); // Show full list if search is empty
+          } else {
+            const results = miniSearch.search(query, {
+              prefix: true,
+              fuzzy: 0.5,
+            });
+            renderVocabList(results.map((result) => result));
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
