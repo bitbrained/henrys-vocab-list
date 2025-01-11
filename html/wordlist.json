@@ -1,416 +1,131 @@
-{
-	"wordList": [
-		{
-			"word": "accommodating",
-			"meaning": "doing what you can to make a person feel welcomed"
-		},
-		{
-			"word": "adept",
-			"meaning": "good at"
-		},
-		{
-			"word": "alas",
-			"meaning": "an expression that shows disappointment"
-		},
-		{
-			"word": "antagonize",
-			"meaning": "to pick on, to bother"
-		},
-		{
-			"word": "apprehension",
-			"meaning": "worry, concern"
-		},
-		{
-			"word": "astonished",
-			"meaning": "shocked, amazed"
-		},
-		{
-			"word": "authorization",
-			"meaning": "permission"
-		},
-		{
-			"word": "bellowed",
-			"meaning": "a deep roar"
-		},
-		{
-			"word": "bone-dry",
-			"meaning": "extremely dry"
-		},
-		{
-			"word": "brawny",
-			"meaning": "strong, muscular"
-		},
-		{
-			"word": "bushel",
-			"meaning": "a large amount of something (about 8 pounds)"
-		},
-		{
-			"word": "claim",
-			"meaning": "a statement"
-		},
-		{
-			"word": "clambered",
-			"meaning": "climbed"
-		},
-		{
-			"word": "commute",
-			"meaning": "a trip to work"
-		},
-		{
-			"word": "companionable",
-			"meaning": "friendly"
-		},
-		{
-			"word": "competent",
-			"meaning": "good at something"
-		},
-		{
-			"word": "complemented",
-			"meaning": "went well with"
-		},
-		{
-			"word": "conceal",
-			"meaning": "to hide"
-		},
-		{
-			"word": "devise",
-			"meaning": "to come up with a plan, formulate"
-		},
-		{
-			"word": "dilemma",
-			"meaning": "a problem, a predicament"
-		},
-		{
-			"word": "diminished",
-			"meaning": "lessened"
-		},
-		{
-			"word": "dinghy",
-			"meaning": "small boat"
-		},
-		{
-			"word": "distress",
-			"meaning": "anxiety, upset"
-		},
-		{
-			"word": "distributor",
-			"meaning": "a company who provides food for restaurants"
-		},
-		{
-			"word": "duo",
-			"meaning": "two people"
-		},
-		{
-			"word": "dust up",
-			"meaning": "a small fight"
-		},
-		{
-			"word": "eavesdropping",
-			"meaning": "secretly listening to someone else's conversation"
-		},
-		{
-			"word": "elongated",
-			"meaning": "something longer"
-		},
-		{
-			"word": "entitled",
-			"meaning": "deserved it"
-		},
-		{
-			"word": "essential",
-			"meaning": "very necessary"
-		},
-		{
-			"word": "exalted",
-			"meaning": "very respected and important"
-		},
-		{
-			"word": "excursion",
-			"meaning": "an outing, a trip"
-		},
-		{
-			"word": "extraneous",
-			"meaning": "extra, not needed"
-		},
-		{
-			"word": "feisty",
-			"meaning": "playful, full of energy"
-		},
-		{
-			"word": "foodie",
-			"meaning": "a person who knows a lot about and loves food"
-		},
-		{
-			"word": "formulate",
-			"meaning": "to come up with a plan, devise"
-		},
-		{
-			"word": "frigid",
-			"meaning": "very cold"
-		},
-		{
-			"word": "gales",
-			"meaning": "strong winds"
-		},
-		{
-			"word": "grimace",
-			"meaning": "a facial expression of pain"
-		},
-		{
-			"word": "halted",
-			"meaning": "stopped"
-		},
-		{
-			"word": "hearty",
-			"meaning": "a big meal, something that fills you up"
-		},
-		{
-			"word": "heedlessly",
-			"meaning": "without paying attention"
-		},
-		{
-			"word": "hull",
-			"meaning": "the bottom of the ship that is in the water"
-		},
-		{
-			"word": "hurdles",
-			"meaning": "jumps, flies"
-		},
-		{
-			"word": "imminent",
-			"meaning": "about to happen right away"
-		},
-		{
-			"word": "impetuous",
-			"meaning": "acts without thinking, impulsive"
-		},
-		{
-			"word": "insoles",
-			"meaning": "the padding inside a shoe"
-		},
-		{
-			"word": "iridescent",
-			"meaning": "shiny"
-		},
-		{
-			"word": "lumbers",
-			"meaning": "walks with great difficulty"
-		},
-		{
-			"word": "lurking",
-			"meaning": "hiding, sneaking"
-		},
-		{
-			"word": "mast",
-			"meaning": "the pole on a boat that the sail is attached to"
-		},
-		{
-			"word": "meager",
-			"meaning": "very little amount"
-		},
-		{
-			"word": "menial",
-			"meaning": "work that doesn't need a lot of skill"
-		},
-		{
-			"word": "ominous",
-			"meaning": "threatening, big and scary"
-		},
-		{
-			"word": "outlandish",
-			"meaning": "outrageous, ridiculous"
-		},
-		{
-			"word": "perilous",
-			"meaning": "dangerous"
-		},
-		{
-			"word": "ponders",
-			"meaning": "thinks about"
-		},
-		{
-			"word": "predicament",
-			"meaning": "problem, a dilemma"
-		},
-		{
-			"word": "prey",
-			"meaning": "an animal that is eaten by predator"
-		},
-		{
-			"word": "proper",
-			"meaning": "correct"
-		},
-		{
-			"word": "quandary",
-			"meaning": "a difficult situation that is not easy to solve"
-		},
-		{
-			"word": "ramble",
-			"meaning": "a fun walk without a destination"
-		},
-		{
-			"word": "rave",
-			"meaning": "to talk on and on about how good something is"
-		},
-		{
-			"word": "reliable",
-			"meaning": "dependable"
-		},
-		{
-			"word": "rely",
-			"meaning": "depend on"
-		},
-		{
-			"word": "retorts",
-			"meaning": "responds, answers"
-		},
-		{
-			"word": "riggings",
-			"meaning": "the ropes that tie the sail to the mast"
-		},
-		{
-			"word": "rigorous",
-			"meaning": "careful, precise, demanding"
-		},
-		{
-			"word": "roster",
-			"meaning": "a list of players"
-		},
-		{
-			"word": "savor",
-			"meaning": "enjoy"
-		},
-		{
-			"word": "scoffed",
-			"meaning": "teased, made fun of"
-		},
-		{
-			"word": "scrubby",
-			"meaning": "an area with many small bushes"
-		},
-		{
-			"word": "searing",
-			"meaning": "burning"
-		},
-		{
-			"word": "seasoned",
-			"meaning": "something that has been used often"
-		},
-		{
-			"word": "shushing",
-			"meaning": "telling someone to be quiet"
-		},
-		{
-			"word": "smarts",
-			"meaning": "hurts"
-		},
-		{
-			"word": "snare",
-			"meaning": "to trap or catch"
-		},
-		{
-			"word": "somber",
-			"meaning": "serious"
-		},
-		{
-			"word": "sought",
-			"meaning": "looked for"
-		},
-		{
-			"word": "stern",
-			"meaning": "the back of the boat"
-		},
-		{
-			"word": "strides",
-			"meaning": "steps"
-		},
-		{
-			"word": "stroll",
-			"meaning": "an easy walk"
-		},
-		{
-			"word": "sulk",
-			"meaning": "pout"
-		},
-		{
-			"word": "swabbing",
-			"meaning": "mopping"
-		},
-		{
-			"word": "tar",
-			"meaning": "a sticky black substance (that is put on roads and the bottom of wooden ships)"
-		},
-		{
-			"word": "tethered",
-			"meaning": "tied to something"
-		},
-		{
-			"word": "trail head",
-			"meaning": "the beginning of a hiking trail"
-		},
-		{
-			"word": "uncharted",
-			"meaning": "not on a map"
-		},
-		{
-			"word": "underwhelmed",
-			"meaning": "not impressed"
-		},
-		{
-			"word": "unearth",
-			"meaning": "to uncover, to find"
-		},
-		{
-			"word": "uniformly",
-			"meaning": "done the same way each time"
-		},
-		{
-			"word": "unpalatable",
-			"meaning": "something so bad you don't want to eat it"
-		},
-		{
-			"word": "visualization",
-			"meaning": "to imagine"
-		},
-		{
-			"word": "wade",
-			"meaning": "walk in shallow water"
-		},
-		{
-			"word": "wiff",
-			"meaning": "smell"
-		},
-		{
-			"word": "acquire",
-			"meaning": "to get"
-		},
-		{
-			"word": "national treasure",
-			"meaning": "something very important to a country"
-		},
-		{
-			"word": "maintain",
-			"meaning": "to keep"
-		},
-		{
-			"word": "rendered",
-			"meaning": "caused"
-		},
-		{
-			"word": "obsolete",
-			"meaning": "no longer used because something better now exists"
-		},
-		{
-			"word": "unveiled",
-			"meaning": "to show for the first time"
-		},
-		{
-			"word": "scholars",
-			"meaning": "very educated people"
-		},
-		{
-			"word": "aesthetic",
-			"meaning": "beauty, pleasing"
-		}
-	]
+{ "wordList": [
+    { "word": "accommodating", "meaning": "doing what you can to make a person feel welcomed" },
+    { "word": "adept", "meaning": "good at" },
+    { "word": "alas", "meaning": "an expression that shows disappointment" },
+    { "word": "antagonize", "meaning": "to pick on, to bother" },
+    { "word": "apprehension", "meaning": "worry, concern" },
+    { "word": "astonished", "meaning": "shocked, amazed" },
+    { "word": "authorization", "meaning": "permission" },
+    { "word": "bellowed", "meaning": "a deep roar" },
+    { "word": "bone-dry", "meaning": "extremely dry" },
+    { "word": "brawny", "meaning": "strong, muscular" },
+    { "word": "bushel", "meaning": "a large amount of something (about 8 pounds)" },
+    { "word": "claim", "meaning": "a statement" },
+    { "word": "clambered", "meaning": "climbed" },
+    { "word": "commute", "meaning": "a trip to work" },
+    { "word": "companionable", "meaning": "friendly" },
+    { "word": "competent", "meaning": "good at something" },
+    { "word": "complemented", "meaning": "went well with" },
+    { "word": "conceal", "meaning": "to hide" },
+    { "word": "devise", "meaning": "to come up with a plan, formulate" },
+    { "word": "dilemma", "meaning": "a problem, a predicament" },
+    { "word": "diminished", "meaning": "lessened" },
+    { "word": "dinghy", "meaning": "small boat" },
+    { "word": "distress", "meaning": "anxiety, upset" },
+    { "word": "distributor", "meaning": "a company who provides food for restaurants" },
+    { "word": "duo", "meaning": "two people" },
+    { "word": "dust up", "meaning": "a small fight" },
+    { "word": "eavesdropping", "meaning": "secretly listening to someone else's conversation" },
+    { "word": "elongated", "meaning": "something longer" },
+    { "word": "entitled", "meaning": "deserved it" },
+    { "word": "essential", "meaning": "very necessary" },
+    { "word": "exalted", "meaning": "very respected and important" },
+    { "word": "excursion", "meaning": "an outing, a trip" },
+    { "word": "extraneous", "meaning": "extra, not needed" },
+    { "word": "feisty", "meaning": "playful, full of energy" },
+    { "word": "foodie", "meaning": "a person who knows a lot about and loves food" },
+    { "word": "formulate", "meaning": "to come up with a plan, devise" },
+    { "word": "frigid", "meaning": "very cold" },
+    { "word": "gales", "meaning": "strong winds" },
+    { "word": "grimace", "meaning": "a facial expression of pain" },
+    { "word": "halted", "meaning": "stopped" },
+    { "word": "hearty", "meaning": "a big meal, something that fills you up" },
+    { "word": "heedlessly", "meaning": "without paying attention" },
+    { "word": "hull", "meaning": "the bottom of the ship that is in the water" },
+    { "word": "hurdles", "meaning": "jumps, flies" },
+    { "word": "imminent", "meaning": "about to happen right away" },
+    { "word": "impetuous", "meaning": "acts without thinking, impulsive" },
+    { "word": "insoles", "meaning": "the padding inside a shoe" },
+    { "word": "iridescent", "meaning": "shiny" },
+    { "word": "lumbers", "meaning": "walks with great difficulty" },
+    { "word": "lurking", "meaning": "hiding, sneaking" },
+    { "word": "mast", "meaning": "the pole on a boat that the sail is attached to" },
+    { "word": "meager", "meaning": "very little amount" },
+    { "word": "menial", "meaning": "work that doesn't need a lot of skill" },
+    { "word": "ominous", "meaning": "threatening, big and scary" },
+    { "word": "outlandish", "meaning": "outrageous, ridiculous" },
+    { "word": "perilous", "meaning": "dangerous" },
+    { "word": "ponders", "meaning": "thinks about" },
+    { "word": "predicament", "meaning": "problem, a dilemma" },
+    { "word": "prey", "meaning": "an animal that is eaten by predator" },
+    { "word": "proper", "meaning": "correct" },
+    { "word": "quandary", "meaning": "a difficult situation that is not easy to solve" },
+    { "word": "ramble", "meaning": "a fun walk without a destination" },
+    { "word": "rave", "meaning": "to talk on and on about how good something is" },
+    { "word": "reliable", "meaning": "dependable" },
+    { "word": "rely", "meaning": "depend on" },
+    { "word": "retorts", "meaning": "responds, answers" },
+    { "word": "riggings", "meaning": "the ropes that tie the sail to the mast" },
+    { "word": "rigorous", "meaning": "careful, precise, demanding" },
+    { "word": "roster", "meaning": "a list of players" },
+    { "word": "savor", "meaning": "enjoy" },
+    { "word": "scoffed", "meaning": "teased, made fun of" },
+    { "word": "scrubby", "meaning": "an area with many small bushes" },
+    { "word": "searing", "meaning": "burning" },
+    { "word": "seasoned", "meaning": "something that has been used often" },
+    { "word": "shushing", "meaning": "telling someone to be quiet" },
+    { "word": "smarts", "meaning": "hurts" },
+    { "word": "snare", "meaning": "to trap or catch" },
+    { "word": "somber", "meaning": "serious" },
+    { "word": "sought", "meaning": "looked for" },
+    { "word": "stern", "meaning": "the back of the boat" },
+    { "word": "strides", "meaning": "steps" },
+    { "word": "stroll", "meaning": "an easy walk" },
+    { "word": "sulk", "meaning": "pout" },
+    { "word": "swabbing", "meaning": "mopping" },
+    { "word": "tar", "meaning": "a sticky black substance (that is put on roads and the bottom of wooden ships)" },
+    { "word": "tethered", "meaning": "tied to something" },
+    { "word": "trail head", "meaning": "the beginning of a hiking trail" },
+    { "word": "uncharted", "meaning": "not on a map" },
+    { "word": "underwhelmed", "meaning": "not impressed" },
+    { "word": "unearth", "meaning": "to uncover, to find" },
+    { "word": "uniformly", "meaning": "done the same way each time" },
+    { "word": "unpalatable", "meaning": "something so bad you don't want to eat it" },
+    { "word": "visualization", "meaning": "to imagine" },
+    { "word": "wade", "meaning": "walk in shallow water" },
+    { "word": "wiff", "meaning": "smell" },
+    { "word": "acquire", "meaning": "to get" },
+    { "word": "national treasure", "meaning": "something very important to a country" },
+    { "word": "maintain", "meaning": "to keep" },
+    { "word": "rendered", "meaning": "caused" },
+    { "word": "obsolete", "meaning": "no longer used because something better now exists" },
+    { "word": "unveiled", "meaning": "to show for the first time" },
+    { "word": "scholars", "meaning": "very educated people" },
+    { "word": "aesthetic", "meaning": "beauty, pleasing" },
+    { "word": "attorneys", "meaning": "lawyers" },
+    { "word": "claims", "meaning": "what people tell an insurance company" },
+    { "word": "track", "meaning": "follow" },
+    { "word": "moniker", "meaning": "nickname" },
+    { "word": "emergence", "meaning": "beginning to exist" },
+    { "word": "apprehend", "meaning": "to catch, to arrest" },
+    { "word": "keen", "meaning": "smart, sharp" },
+    { "word": "outlaws", "meaning": "criminals" },
+    { "word": "innovative", "meaning": "a new way of doing something" },
+    { "word": "surveillance", "meaning": "watching someone from a distance" },
+    { "word": "circulating", "meaning": "passing around" },
+    { "word": "foiling", "meaning": "to stop something from happening" },
+    { "word": "exalted", "meaning": "highly respected" },
+    { "word": "prosper", "meaning": "to make a lot of money" },
+    { "word": "ferreting", "meaning": "digging out, uncovering" },
+    { "word": "facade", "meaning": "the front side of a building" },
+    { "word": "embellished", "meaning": "added to something, exaggerated" },
+    { "word": "recipient", "meaning": "a person who receives something" },
+    { "word": "prestigious", "meaning": "respected, admired " },
+    { "word": "prolific", "meaning": "producing many things " },
+    { "word": "ghetto", "meaning": "a poor neighborhood " },
+    { "word": "diverse", "meaning": "many different types" },
+    { "word": "adapting", "meaning": "adjusting, changing" },
+    { "word": "alien", "meaning": "unknown, different" },
+    { "word": "ordinary", "meaning": "common, usual" }
+  ]
 }
