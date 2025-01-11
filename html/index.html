@@ -67,6 +67,13 @@
       </div>
     </footer>
 
+    <!-- Pagination Template -->
+    <template id="pagination-template">
+      <button class="mx-1 px-3 py-1 border rounded prev-button">&larr; Previous</button>
+      <span class="mx-2 page-info">Page 1 of 1</span>
+      <button class="mx-1 px-3 py-1 border rounded next-button">Next &rarr;</button>
+    </template>
+
     <script>
       (async () => {
         const fetchVocabulary = async () => {
@@ -125,10 +132,10 @@
           paginationContainer.innerHTML = "";
 
           const totalPages = Math.ceil(totalItems / itemsPerPage);
+          const template = document.getElementById("pagination-template").content.cloneNode(true);
 
-          const prevButton = document.createElement("button");
-          prevButton.classList.add("mx-1", "px-3", "py-1", "border", "rounded", currentPage === 1 ? "bg-gray-300" : "bg-blue-500", currentPage === 1 ? "cursor-not-allowed" : "hover:bg-blue-700");
-          prevButton.textContent = "< Previous";
+          const prevButton = template.querySelector(".prev-button");
+          prevButton.classList.add(currentPage === 1 ? "bg-gray-300" : "bg-blue-500", currentPage === 1 ? "cursor-not-allowed" : "hover:bg-blue-700");
           prevButton.disabled = currentPage === 1;
           prevButton.addEventListener("click", () => {
             if (currentPage > 1) {
@@ -136,16 +143,12 @@
               updateVocabList();
             }
           });
-          paginationContainer.appendChild(prevButton);
 
-          const pageInfo = document.createElement("span");
-          pageInfo.classList.add("mx-2");
+          const pageInfo = template.querySelector(".page-info");
           pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-          paginationContainer.appendChild(pageInfo);
 
-          const nextButton = document.createElement("button");
-          nextButton.classList.add("mx-1", "px-3", "py-1", "border", "rounded", currentPage === totalPages ? "bg-gray-300" : "bg-blue-500", currentPage === totalPages ? "cursor-not-allowed" : "hover:bg-blue-700");
-          nextButton.textContent = "Next >";
+          const nextButton = template.querySelector(".next-button");
+          nextButton.classList.add(currentPage === totalPages ? "bg-gray-300" : "bg-blue-500", currentPage === totalPages ? "cursor-not-allowed" : "hover:bg-blue-700");
           nextButton.disabled = currentPage === totalPages;
           nextButton.addEventListener("click", () => {
             if (currentPage < totalPages) {
@@ -153,7 +156,8 @@
               updateVocabList();
             }
           });
-          paginationContainer.appendChild(nextButton);
+
+          paginationContainer.appendChild(template);
         };
 
         const updateVocabList = () => {
