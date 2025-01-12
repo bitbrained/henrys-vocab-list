@@ -70,7 +70,7 @@
     <!-- Vocabulary Item Template -->
     <template id="vocab-item-template">
       <div class="border-b pb-4 mb-4">
-        <h3 class="text-xl font-bold text-blue-600"></h3>
+        <a class="dictionary-link text-gray-400"><h3 class="text-xl font-bold text-blue-600"></h3></a>
         <p class="text-gray-700"></p>
       </div>
     </template>
@@ -123,6 +123,7 @@
             const vocabItem = template.cloneNode(true);
             vocabItem.querySelector("h3").textContent = item.word;
             vocabItem.querySelector("p").textContent = item.meaning;
+            vocabItem.querySelector(".dictionary-link").href = "https://www.merriam-webster.com/dictionary/" + encodeURIComponent(item.word);
             vocabListContainer.appendChild(vocabItem);
           });
         };
