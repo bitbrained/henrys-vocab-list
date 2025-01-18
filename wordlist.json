@@ -126,6 +126,20 @@
     { "word": "diverse", "meaning": "many different types" },
     { "word": "adapting", "meaning": "adjusting, changing" },
     { "word": "alien", "meaning": "unknown, different" },
-    { "word": "ordinary", "meaning": "common, usual" }
+    { "word": "ordinary", "meaning": "common, usual" },
+    { "word": "ubiquitous", "meaning": "seen everywhere, very common" },
+    { "word": "backstory", "meaning": "the history of a persons life" },
+    { "word": "trauma", "meaning": "a very damaging event in someone's life" },
+    { "word": "vendetta", "meaning": "a long-lasting conflict with someone who has hurt you" },
+    { "word": "altruistic", "meaning": "doing good for other people without a reward" },
+    { "word": "pursues", "meaning": "chases, goes after" },
+    { "word": "reluctantly", "meaning": "doing something you really don't want to do" },
+    { "word": "spur", "meaning": "to encourage someone to move forward" },
+    { "word": "adversity", "meaning": "something difficult to overcome" },
+    { "word": "resolved", "meaning": "to decide to do something" },
+    { "word": "empathy", "meaning": "understanding how someone else feels" },
+    { "word": "sympathy", "meaning": "feeling sorry for someone" },
+    { "word": "genuine", "meaning": "real or true" },
+    { "word": "exceptional", "meaning": "greater than normal" }
   ]
 }
