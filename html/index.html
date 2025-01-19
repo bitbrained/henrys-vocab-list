@@ -25,7 +25,7 @@
         <input
           id="search-bar"
           type="text"
-          placeholder="Search for a word..."
+          placeholder="Search for a word or tag..."
           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
@@ -72,6 +72,9 @@
       <div class="border-b pb-4 mb-4">
         <a class="dictionary-link text-gray-400"><h3 class="text-xl font-bold text-blue-600"></h3></a>
         <p class="text-gray-700"></p>
+        <div class="tags mt-2">
+          <!-- Tags will be dynamically inserted here -->
+        </div>
       </div>
     </template>
 
@@ -103,8 +106,8 @@
         );
 
         const miniSearch = new MiniSearch({
-          fields: ["word", "meaning"],
-          storeFields: ["word", "meaning"],
+          fields: ["word", "meaning", "tags"],
+          storeFields: ["word", "meaning", "tags"],
         });
 
         miniSearch.addAll(vocabulary);
@@ -124,6 +127,16 @@
             vocabItem.querySelector("h3").textContent = item.word;
             vocabItem.querySelector("p").textContent = item.meaning;
             vocabItem.querySelector(".dictionary-link").href = "https://www.merriam-webster.com/dictionary/" + encodeURIComponent(item.word);
+
+            const tagsContainer = vocabItem.querySelector(".tags");
+            if (item.tags) {
+              item.tags.forEach(tag => {
+                const tagElement = document.createElement("span");
+                tagElement.classList.add("inline-block", "bg-gray-200", "rounded-full", "px-3", "py-1", "text-sm", "font-semibold", "text-gray-700", "mr-2");
+                tagElement.textContent = tag;
+                tagsContainer.appendChild(tagElement);
+              });
+            }
             vocabListContainer.appendChild(vocabItem);
           });
         };
