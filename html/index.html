@@ -44,8 +44,9 @@
       <div class="w-full lg:w-1/3 lg:pl-4 mt-8 lg:mt-0">
         <aside class="bg-white shadow-md rounded-lg p-6">
           <h2 class="text-2xl font-semibold mb-4">Quizzes</h2>
-          <ul class="list-disc list-inside">
+          <ul class="list-disc list-inside pb-3">
             <li><a href="https://go.spellingtestbuddy.com/wordlists/1099/p_take_test?vc=MTJjZDcx" class="text-blue-600 hover:underline">Quiz: Problem Words</a></li>
+            <li><a href="https://go.spellingtestbuddy.com/wordlists/2252/p_take_test?vc=ZDI0NWMx" class="text-blue-600 hover:underline">Quiz (2025-01-23)</a></li>
             <li><a href="https://go.spellingtestbuddy.com/wordlists/1869/p_take_test?vc=ZTA1MDQy" class="text-blue-600 hover:underline">Quiz (2025-01-16)</a></li>
             <li><a href="https://go.spellingtestbuddy.com/wordlists/1854/p_take_test?vc=ZTI0OGUy" class="text-blue-600 hover:underline">Quiz (2025-01-09)</a></li>
             <li><a href="https://go.spellingtestbuddy.com/wordlists/1544/p_take_test?vc=ZTMwODJm" class="text-blue-600 hover:underline">Quiz (2025-01-02)</a></li>
@@ -56,6 +57,13 @@
             <li><a href="https://go.spellingtestbuddy.com/wordlists/1031/p_take_test?vc=M2I1OGM3" class="text-blue-600 hover:underline">Quiz (2024-11-14)</a></li>
             <li><a href="https://go.spellingtestbuddy.com/wordlists/1032/p_take_test?vc=NWI5ZDQw" class="text-blue-600 hover:underline">Quiz (2024-11-07)</a></li>
           </ul>
+          
+          <h2 class="text-2xl font-semibold mb-4">Tags</h2>
+          <ul class="list-disc list-inside" id="tag-list">
+            <!-- Tags will be dynamically inserted here -->
+            
+          </ul>
+
         </aside>
       </div>
     </div>
@@ -104,6 +112,7 @@
         vocabulary.sort((a, b) =>
           a.word < b.word ? -1 : a.word > b.word ? 1 : 0
         );
+        
 
         const miniSearch = new MiniSearch({
           fields: ["word", "meaning", "tags"],
@@ -182,8 +191,40 @@
           renderPagination(currentItems.length);
         };
 
+        const renderTagList = (vocabulary) => {
+          const tagListContainer = document.getElementById("tag-list");
+          const tags = new Set();
+          vocabulary.forEach(item => {
+            if (item.tags) {
+              item.tags.forEach(tag => tags.add(tag));
+            }
+          });
+
+          tags.forEach(tag => {
+            const tagElement = document.createElement("li");
+            const tagLink = document.createElement("a");
+            tagLink.href = "#";
+            tagLink.classList.add("text-blue-600", "hover:underline");
+            tagLink.textContent = tag;
+            tagLink.addEventListener("click", (event) => {
+              event.preventDefault();
+              document.getElementById("search-bar").value = tag;
+              const results = miniSearch.search(tag, {
+                prefix: true,
+                fuzzy: false,
+              });
+              currentItems = results.map((result) => result);
+              renderPagination(currentItems.length);
+              updateVocabList();
+            });
+            tagElement.appendChild(tagLink);
+            tagListContainer.appendChild(tagElement);
+          });
+        };
+
         renderPagination(vocabulary.length);
         updateVocabList();
+        renderTagList(vocabulary);
 
         const searchBar = document.getElementById("search-bar");
         searchBar.addEventListener("input", (event) => {
