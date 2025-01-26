@@ -200,7 +200,10 @@
             }
           });
 
-          tags.forEach(tag => {
+          // Convert the Set to an array and sort it alphabetically
+          const sortedTags = Array.from(tags).sort();
+
+          sortedTags.forEach(tag => {
             const tagElement = document.createElement("li");
             const tagLink = document.createElement("a");
             tagLink.href = "#";
