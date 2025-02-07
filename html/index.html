@@ -22,12 +22,21 @@
       <div class="w-full lg:w-2/3 lg:pr-4">
         <h2 class="text-2xl font-semibold mb-4">Vocabulary Words</h2>
         <!-- Search Bar -->
-        <input
-          id="search-bar"
-          type="text"
-          placeholder="Search for a word or tag..."
-          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        <div class="relative">
+          <input
+            id="search-bar"
+            type="text"
+            placeholder="Search for a word or tag..."
+            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            id="clear-search"
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden"
+            aria-label="Clear search"
+          >
+            ×
+          </button>
+        </div>
 
         <!-- Vocabulary List Section -->
         <main class="mt-4">
@@ -232,8 +241,9 @@
         renderTagList(vocabulary);
 
         const searchBar = document.getElementById("search-bar");
-        searchBar.addEventListener("input", (event) => {
-          const query = event.target.value.trim();
+        const clearSearchButton = document.getElementById("clear-search");
+        
+        const updateSearchResults = (query) => {
           currentPage = 1; // Reset to the first page
           if (query === "") {
             currentItems = vocabulary;
@@ -248,6 +258,18 @@
             renderPagination(currentItems.length);
             updateVocabList();
           }
+        };
+
+        searchBar.addEventListener("input", (event) => {
+          const query = event.target.value.trim();
+          clearSearchButton.style.display = query ? "block" : "none";
+          updateSearchResults(query);
+        });
+
+        clearSearchButton.addEventListener("click", () => {
+          searchBar.value = "";
+          clearSearchButton.style.display = "none";
+          updateSearchResults("");
         });
       })();
     </script>
