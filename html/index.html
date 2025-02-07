@@ -23,12 +23,21 @@
         <h2 class="text-2xl font-semibold mb-4">Vocabulary Words</h2>
         <!-- Search Bar -->
         <div class="relative">
-          <input
-            id="search-bar"
-            type="text"
-            placeholder="Search for a word or tag..."
-            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          <div class="flex gap-4">
+            <input
+              id="search-bar"
+              type="text"
+              placeholder="Search words and meanings..."
+              class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <select
+              id="tag-filter"
+              class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            >
+              <option value="">All Tags</option>
+              <!-- Tags will be dynamically inserted here -->
+            </select>
+          </div>
           <button
             id="clear-search"
             class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden"
@@ -125,8 +134,9 @@
         );
         
 
+        // Initialize MiniSearch without tags field
         const miniSearch = new MiniSearch({
-          fields: ["word", "meaning", "tags"],
+          fields: ["word", "meaning"],
           storeFields: ["word", "meaning", "tags"],
         });
 
@@ -135,6 +145,34 @@
         const itemsPerPage = 10;
         let currentPage = 1;
         let currentItems = vocabulary;
+        let currentTag = "";
+
+        // Function to filter items by tag
+        const filterByTag = (items, tag) => {
+          if (!tag) return items;
+          return items.filter(item => item.tags && item.tags.includes(tag));
+        };
+
+        // Function to update the displayed items based on search and tag filter
+        const updateDisplayedItems = () => {
+          const searchQuery = document.getElementById("search-bar").value.trim();
+          let filteredItems;
+          
+          if (searchQuery === "") {
+            filteredItems = vocabulary;
+          } else {
+            const results = miniSearch.search(searchQuery, {
+              prefix: true,
+              fuzzy: 0.2
+            });
+            filteredItems = results.map(result => result);
+          }
+
+          currentItems = filterByTag(filteredItems, currentTag);
+          currentPage = 1;
+          renderPagination(currentItems.length);
+          updateVocabList();
+        };
 
         const renderVocabList = (items) => {
           const vocabListContainer = document.getElementById("vocab-list");
@@ -203,8 +241,11 @@
         };
 
         const renderTagList = (vocabulary) => {
+          // Populate tag filter dropdown and tag list
           const tagListContainer = document.getElementById("tag-list");
+          const tagFilterSelect = document.getElementById("tag-filter");
           const tags = new Set();
+          
           vocabulary.forEach(item => {
             if (item.tags) {
               item.tags.forEach(tag => tags.add(tag));
@@ -214,25 +255,21 @@
           // Convert the Set to an array and sort it alphabetically
           const sortedTags = Array.from(tags).sort();
 
+          // Populate tag list in sidebar (non-clickable)
+          tagListContainer.innerHTML = "";
           sortedTags.forEach(tag => {
             const tagElement = document.createElement("li");
-            const tagLink = document.createElement("a");
-            tagLink.href = "#";
-            tagLink.classList.add("text-blue-600", "hover:underline");
-            tagLink.textContent = tag;
-            tagLink.addEventListener("click", (event) => {
-              event.preventDefault();
-              document.getElementById("search-bar").value = tag;
-              const results = miniSearch.search(tag, {
-                prefix: true,
-                fuzzy: false,
-              });
-              currentItems = results.map((result) => result);
-              renderPagination(currentItems.length);
-              updateVocabList();
-            });
-            tagElement.appendChild(tagLink);
+            tagElement.textContent = tag;
             tagListContainer.appendChild(tagElement);
+          });
+
+          // Populate tag filter dropdown
+          tagFilterSelect.innerHTML = '<option value="">All Tags</option>';
+          sortedTags.forEach(tag => {
+            const option = document.createElement("option");
+            option.value = tag;
+            option.textContent = tag;
+            tagFilterSelect.appendChild(option);
           });
         };
 
@@ -240,36 +277,26 @@
         updateVocabList();
         renderTagList(vocabulary);
 
+        // Event Listeners
         const searchBar = document.getElementById("search-bar");
         const clearSearchButton = document.getElementById("clear-search");
+        const tagFilter = document.getElementById("tag-filter");
         
-        const updateSearchResults = (query) => {
-          currentPage = 1; // Reset to the first page
-          if (query === "") {
-            currentItems = vocabulary;
-            renderPagination(vocabulary.length);
-            updateVocabList();
-          } else {
-            const results = miniSearch.search(query, {
-              prefix: true,
-              fuzzy: 0.5,
-            });
-            currentItems = results.map((result) => result);
-            renderPagination(currentItems.length);
-            updateVocabList();
-          }
-        };
-
         searchBar.addEventListener("input", (event) => {
           const query = event.target.value.trim();
           clearSearchButton.style.display = query ? "block" : "none";
-          updateSearchResults(query);
+          updateDisplayedItems();
         });
 
         clearSearchButton.addEventListener("click", () => {
           searchBar.value = "";
           clearSearchButton.style.display = "none";
-          updateSearchResults("");
+          updateDisplayedItems();
+        });
+
+        tagFilter.addEventListener("change", (event) => {
+          currentTag = event.target.value;
+          updateDisplayedItems();
         });
       })();
     </script>
