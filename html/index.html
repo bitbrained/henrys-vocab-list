@@ -95,13 +95,6 @@
             <li><a href="https://go.spellingtestbuddy.com/wordlists/1031/p_take_test?vc=M2I1OGM3" class="text-blue-600 hover:underline">Quiz (2024-11-14)</a></li>
             <li><a href="https://go.spellingtestbuddy.com/wordlists/1032/p_take_test?vc=NWI5ZDQw" class="text-blue-600 hover:underline">Quiz (2024-11-07)</a></li>
           </ul>
-          
-          <h2 class="text-2xl font-semibold mb-4">Tags</h2>
-          <ul class="list-disc list-inside" id="tag-list">
-            <!-- Tags will be dynamically inserted here -->
-            
-          </ul>
-
         </aside>
       </div>
     </div>
@@ -259,8 +252,6 @@
         };
 
         const renderTagList = (vocabulary) => {
-          // Populate tag list and dropdown
-          const tagListContainer = document.getElementById("tag-list");
           const tagOptionsContainer = document.getElementById("tag-options");
           const tags = new Set();
           
@@ -272,14 +263,6 @@
 
           // Convert the Set to an array and sort it alphabetically
           const sortedTags = Array.from(tags).sort();
-
-          // Populate tag list in sidebar
-          tagListContainer.innerHTML = "";
-          sortedTags.forEach(tag => {
-            const tagElement = document.createElement("li");
-            tagElement.textContent = tag;
-            tagListContainer.appendChild(tagElement);
-          });
 
           // Populate tag dropdown
           tagOptionsContainer.innerHTML = `
