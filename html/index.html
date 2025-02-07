@@ -30,13 +30,31 @@
               placeholder="Search words and meanings..."
               class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <select
-              id="tag-filter"
-              class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-            >
-              <option value="">All Tags</option>
-              <!-- Tags will be dynamically inserted here -->
-            </select>
+            <div class="relative w-64">
+              <div
+                id="tag-filter"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer flex items-center justify-between"
+                tabindex="0"
+              >
+                <span id="selected-tag">All Tags</span>
+                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+              <div id="tag-dropdown" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg hidden">
+                <div class="p-2">
+                  <input
+                    type="text"
+                    id="tag-search"
+                    placeholder="Search tags..."
+                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div id="tag-options" class="max-h-48 overflow-y-auto">
+                  <!-- Tags will be dynamically inserted here -->
+                </div>
+              </div>
+            </div>
           </div>
           <button
             id="clear-search"
@@ -241,9 +259,9 @@
         };
 
         const renderTagList = (vocabulary) => {
-          // Populate tag filter dropdown and tag list
+          // Populate tag list and dropdown
           const tagListContainer = document.getElementById("tag-list");
-          const tagFilterSelect = document.getElementById("tag-filter");
+          const tagOptionsContainer = document.getElementById("tag-options");
           const tags = new Set();
           
           vocabulary.forEach(item => {
@@ -255,7 +273,7 @@
           // Convert the Set to an array and sort it alphabetically
           const sortedTags = Array.from(tags).sort();
 
-          // Populate tag list in sidebar (non-clickable)
+          // Populate tag list in sidebar
           tagListContainer.innerHTML = "";
           sortedTags.forEach(tag => {
             const tagElement = document.createElement("li");
@@ -263,14 +281,13 @@
             tagListContainer.appendChild(tagElement);
           });
 
-          // Populate tag filter dropdown
-          tagFilterSelect.innerHTML = '<option value="">All Tags</option>';
-          sortedTags.forEach(tag => {
-            const option = document.createElement("option");
-            option.value = tag;
-            option.textContent = tag;
-            tagFilterSelect.appendChild(option);
-          });
+          // Populate tag dropdown
+          tagOptionsContainer.innerHTML = `
+            <div class="tag-option p-2 hover:bg-gray-100 cursor-pointer" data-value="">All Tags</div>
+            ${sortedTags.map(tag => `
+              <div class="tag-option p-2 hover:bg-gray-100 cursor-pointer" data-value="${tag}">${tag}</div>
+            `).join('')}
+          `;
         };
 
         renderPagination(vocabulary.length);
@@ -281,7 +298,11 @@
         const searchBar = document.getElementById("search-bar");
         const clearSearchButton = document.getElementById("clear-search");
         const tagFilter = document.getElementById("tag-filter");
+        const tagDropdown = document.getElementById("tag-dropdown");
+        const tagSearch = document.getElementById("tag-search");
+        const selectedTag = document.getElementById("selected-tag");
         
+        // Search bar listeners
         searchBar.addEventListener("input", (event) => {
           const query = event.target.value.trim();
           clearSearchButton.style.display = query ? "block" : "none";
@@ -294,9 +315,41 @@
           updateDisplayedItems();
         });
 
-        tagFilter.addEventListener("change", (event) => {
-          currentTag = event.target.value;
-          updateDisplayedItems();
+        // Tag filter listeners
+        tagFilter.addEventListener("click", () => {
+          tagDropdown.classList.toggle("hidden");
+          tagSearch.value = ""; // Clear search when opening dropdown
+          document.querySelectorAll('.tag-option').forEach(option => {
+            option.style.display = "block";
+          });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", (event) => {
+          if (!tagFilter.contains(event.target) && !tagDropdown.contains(event.target)) {
+            tagDropdown.classList.add("hidden");
+          }
+        });
+
+        // Tag search functionality
+        tagSearch.addEventListener("input", (event) => {
+          const searchValue = event.target.value.toLowerCase();
+          document.querySelectorAll('.tag-option').forEach(option => {
+            const tagText = option.textContent.toLowerCase();
+            option.style.display = tagText.includes(searchValue) ? "block" : "none";
+          });
+        });
+
+        // Tag selection
+        document.getElementById("tag-options").addEventListener("click", (event) => {
+          const tagOption = event.target.closest('.tag-option');
+          if (tagOption) {
+            const value = tagOption.dataset.value;
+            selectedTag.textContent = tagOption.textContent;
+            currentTag = value;
+            tagDropdown.classList.add("hidden");
+            updateDisplayedItems();
+          }
         });
       })();
     </script>
