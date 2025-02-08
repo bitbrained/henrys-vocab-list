@@ -112,7 +112,7 @@
     <!-- Vocabulary Item Template -->
     <template id="vocab-item-template">
       <div class="border-b pb-4 mb-4">
-        <a class="dictionary-link text-gray-400"><h3 class="text-xl font-bold text-blue-600"></h3></a>
+       <h3 class="text-xl font-bold text-blue-600"><a class="dictionary-link"></a></h3>
         <p class="text-gray-700"></p>
         <div class="tags mt-2">
           <!-- Tags will be dynamically inserted here -->
@@ -196,7 +196,7 @@
 
           items.forEach((item) => {
             const vocabItem = template.cloneNode(true);
-            vocabItem.querySelector("h3").textContent = item.word;
+            vocabItem.querySelector(".dictionary-link").textContent = item.word;
             vocabItem.querySelector("p").textContent = item.meaning;
             vocabItem.querySelector(".dictionary-link").href = "https://www.merriam-webster.com/dictionary/" + encodeURIComponent(item.word);
 
