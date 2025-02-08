@@ -23,19 +23,49 @@
         <h2 class="text-2xl font-semibold mb-4">Vocabulary Words</h2>
         <!-- Search Bar -->
         <div class="relative">
-          <input
-            id="search-bar"
-            type="text"
-            placeholder="Search for a word or tag..."
-            class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            id="clear-search"
-            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden"
-            aria-label="Clear search"
-          >
-            ×
-          </button>
+          <div class="flex gap-4">
+            <div class="relative flex-1">
+              <input
+                id="search-bar"
+                type="text"
+                placeholder="Search words and meanings..."
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button
+                id="clear-search"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                style="display: none;"
+                aria-label="Clear search"
+              >
+                ×
+              </button>
+            </div>
+            <div class="relative w-64">
+              <div
+                id="tag-filter"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer flex items-center justify-between"
+                tabindex="0"
+              >
+                <span id="selected-tag">All Tags</span>
+                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+              <div id="tag-dropdown" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg hidden">
+                <div class="p-2">
+                  <input
+                    type="text"
+                    id="tag-search"
+                    placeholder="Search tags..."
+                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div id="tag-options" class="max-h-48 overflow-y-auto">
+                  <!-- Tags will be dynamically inserted here -->
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Vocabulary List Section -->
@@ -68,13 +98,6 @@
             <li><a href="https://go.spellingtestbuddy.com/wordlists/1031/p_take_test?vc=M2I1OGM3" class="text-blue-600 hover:underline">Quiz (2024-11-14)</a></li>
             <li><a href="https://go.spellingtestbuddy.com/wordlists/1032/p_take_test?vc=NWI5ZDQw" class="text-blue-600 hover:underline">Quiz (2024-11-07)</a></li>
           </ul>
-          
-          <h2 class="text-2xl font-semibold mb-4">Tags</h2>
-          <ul class="list-disc list-inside" id="tag-list">
-            <!-- Tags will be dynamically inserted here -->
-            
-          </ul>
-
         </aside>
       </div>
     </div>
@@ -89,7 +112,7 @@
     <!-- Vocabulary Item Template -->
     <template id="vocab-item-template">
       <div class="border-b pb-4 mb-4">
-        <a class="dictionary-link text-gray-400"><h3 class="text-xl font-bold text-blue-600"></h3></a>
+       <h3 class="text-xl font-bold text-blue-600"><a class="dictionary-link"></a></h3>
         <p class="text-gray-700"></p>
         <div class="tags mt-2">
           <!-- Tags will be dynamically inserted here -->
@@ -125,8 +148,9 @@
         );
         
 
+        // Initialize MiniSearch without tags field
         const miniSearch = new MiniSearch({
-          fields: ["word", "meaning", "tags"],
+          fields: ["word", "meaning"],
           storeFields: ["word", "meaning", "tags"],
         });
 
@@ -135,6 +159,34 @@
         const itemsPerPage = 10;
         let currentPage = 1;
         let currentItems = vocabulary;
+        let currentTag = "";
+
+        // Function to filter items by tag
+        const filterByTag = (items, tag) => {
+          if (!tag) return items;
+          return items.filter(item => item.tags && item.tags.includes(tag));
+        };
+
+        // Function to update the displayed items based on search and tag filter
+        const updateDisplayedItems = () => {
+          const searchQuery = document.getElementById("search-bar").value.trim();
+          let filteredItems;
+          
+          if (searchQuery === "") {
+            filteredItems = vocabulary;
+          } else {
+            const results = miniSearch.search(searchQuery, {
+              prefix: true,
+              fuzzy: 0.2
+            });
+            filteredItems = results.map(result => result);
+          }
+
+          currentItems = filterByTag(filteredItems, currentTag);
+          currentPage = 1;
+          renderPagination(currentItems.length);
+          updateVocabList();
+        };
 
         const renderVocabList = (items) => {
           const vocabListContainer = document.getElementById("vocab-list");
@@ -144,7 +196,7 @@
 
           items.forEach((item) => {
             const vocabItem = template.cloneNode(true);
-            vocabItem.querySelector("h3").textContent = item.word;
+            vocabItem.querySelector(".dictionary-link").textContent = item.word;
             vocabItem.querySelector("p").textContent = item.meaning;
             vocabItem.querySelector(".dictionary-link").href = "https://www.merriam-webster.com/dictionary/" + encodeURIComponent(item.word);
 
@@ -203,8 +255,9 @@
         };
 
         const renderTagList = (vocabulary) => {
-          const tagListContainer = document.getElementById("tag-list");
+          const tagOptionsContainer = document.getElementById("tag-options");
           const tags = new Set();
+          
           vocabulary.forEach(item => {
             if (item.tags) {
               item.tags.forEach(tag => tags.add(tag));
@@ -214,62 +267,75 @@
           // Convert the Set to an array and sort it alphabetically
           const sortedTags = Array.from(tags).sort();
 
-          sortedTags.forEach(tag => {
-            const tagElement = document.createElement("li");
-            const tagLink = document.createElement("a");
-            tagLink.href = "#";
-            tagLink.classList.add("text-blue-600", "hover:underline");
-            tagLink.textContent = tag;
-            tagLink.addEventListener("click", (event) => {
-              event.preventDefault();
-              document.getElementById("search-bar").value = tag;
-              const results = miniSearch.search(tag, {
-                prefix: true,
-                fuzzy: false,
-              });
-              currentItems = results.map((result) => result);
-              renderPagination(currentItems.length);
-              updateVocabList();
-            });
-            tagElement.appendChild(tagLink);
-            tagListContainer.appendChild(tagElement);
-          });
+          // Populate tag dropdown
+          tagOptionsContainer.innerHTML = `
+            <div class="tag-option p-2 hover:bg-gray-100 cursor-pointer" data-value="">All Tags</div>
+            ${sortedTags.map(tag => `
+              <div class="tag-option p-2 hover:bg-gray-100 cursor-pointer" data-value="${tag}">${tag}</div>
+            `).join('')}
+          `;
         };
 
         renderPagination(vocabulary.length);
         updateVocabList();
         renderTagList(vocabulary);
 
+        // Event Listeners
         const searchBar = document.getElementById("search-bar");
         const clearSearchButton = document.getElementById("clear-search");
+        const tagFilter = document.getElementById("tag-filter");
+        const tagDropdown = document.getElementById("tag-dropdown");
+        const tagSearch = document.getElementById("tag-search");
+        const selectedTag = document.getElementById("selected-tag");
         
-        const updateSearchResults = (query) => {
-          currentPage = 1; // Reset to the first page
-          if (query === "") {
-            currentItems = vocabulary;
-            renderPagination(vocabulary.length);
-            updateVocabList();
-          } else {
-            const results = miniSearch.search(query, {
-              prefix: true,
-              fuzzy: 0.5,
-            });
-            currentItems = results.map((result) => result);
-            renderPagination(currentItems.length);
-            updateVocabList();
-          }
-        };
-
+        // Search bar listeners
         searchBar.addEventListener("input", (event) => {
           const query = event.target.value.trim();
           clearSearchButton.style.display = query ? "block" : "none";
-          updateSearchResults(query);
+          updateDisplayedItems();
         });
 
         clearSearchButton.addEventListener("click", () => {
           searchBar.value = "";
           clearSearchButton.style.display = "none";
-          updateSearchResults("");
+          updateDisplayedItems();
+        });
+
+        // Tag filter listeners
+        tagFilter.addEventListener("click", () => {
+          tagDropdown.classList.toggle("hidden");
+          tagSearch.value = ""; // Clear search when opening dropdown
+          document.querySelectorAll('.tag-option').forEach(option => {
+            option.style.display = "block";
+          });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", (event) => {
+          if (!tagFilter.contains(event.target) && !tagDropdown.contains(event.target)) {
+            tagDropdown.classList.add("hidden");
+          }
+        });
+
+        // Tag search functionality
+        tagSearch.addEventListener("input", (event) => {
+          const searchValue = event.target.value.toLowerCase();
+          document.querySelectorAll('.tag-option').forEach(option => {
+            const tagText = option.textContent.toLowerCase();
+            option.style.display = tagText.includes(searchValue) ? "block" : "none";
+          });
+        });
+
+        // Tag selection
+        document.getElementById("tag-options").addEventListener("click", (event) => {
+          const tagOption = event.target.closest('.tag-option');
+          if (tagOption) {
+            const value = tagOption.dataset.value;
+            selectedTag.textContent = tagOption.textContent;
+            currentTag = value;
+            tagDropdown.classList.add("hidden");
+            updateDisplayedItems();
+          }
         });
       })();
     </script>
