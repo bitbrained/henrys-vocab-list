@@ -24,12 +24,22 @@
         <!-- Search Bar -->
         <div class="relative">
           <div class="flex gap-4">
-            <input
-              id="search-bar"
-              type="text"
-              placeholder="Search words and meanings..."
-              class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            <div class="relative flex-1">
+              <input
+                id="search-bar"
+                type="text"
+                placeholder="Search words and meanings..."
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button
+                id="clear-search"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                style="display: none;"
+                aria-label="Clear search"
+              >
+                ×
+              </button>
+            </div>
             <div class="relative w-64">
               <div
                 id="tag-filter"
@@ -56,13 +66,6 @@
               </div>
             </div>
           </div>
-          <button
-            id="clear-search"
-            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden"
-            aria-label="Clear search"
-          >
-            ×
-          </button>
         </div>
 
         <!-- Vocabulary List Section -->
